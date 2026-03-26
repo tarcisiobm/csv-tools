@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>csv-tools</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/tools.css">
+</head>
+<body>
+  <div class="container">
+    <header class="app-header">
+      <h1>csv-tools</h1>
+      <span class="version" id="app-version"></span>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab-btn active" data-target="comparer-tool">compare</button>
+      <button class="tab-btn" data-target="filter-tool">filter</button>
+      <button class="tab-btn" data-target="replacer-tool">replace</button>
+    </nav>
+
+    <!-- COMPARER -->
+    <section id="comparer-tool" class="tool-section">
+      <p class="tool-desc">Compare headers between a base (model) CSV and a target (data) CSV. Fix the target to match the base structure.</p>
+      <div class="comparer-inputs">
+        <div class="field">
+          <label>base csv (reference)</label>
+          <div class="file-input-wrapper">
+            <input type="file" id="comparer-model" accept=".csv">
+            <span class="file-btn">Choose file</span>
+            <span class="file-name">No file selected</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>target csv (to correct)</label>
+          <div class="file-input-wrapper">
+            <input type="file" id="comparer-data" accept=".csv">
+            <span class="file-btn">Choose file</span>
+            <span class="file-name">No file selected</span>
+          </div>
+        </div>
+        <button id="comparer-run" class="btn btn-primary">diff headers</button>
+      </div>
+      <div id="comparer-previews"></div>
+      <div id="comparer-diff" class="results"></div>
+      <div id="comparer-fix-section" class="actions hidden">
+        <button id="comparer-fix" class="btn btn-success">fix target → match base</button>
+        <button id="comparer-download" class="btn btn-success hidden">↓ download corrected</button>
+      </div>
+      <div id="comparer-output"></div>
+    </section>
+
+    <!-- FILTER -->
+    <section id="filter-tool" class="tool-section hidden">
+      <p class="tool-desc">Filter CSV rows using conditions. Chain multiple conditions with AND / OR logic.</p>
+      <div class="field">
+        <label>csv file</label>
+        <div class="file-input-wrapper">
+          <input type="file" id="filter-file" accept=".csv">
+          <span class="file-btn">Choose file</span>
+          <span class="file-name">No file selected</span>
+        </div>
+      </div>
+      <div id="filter-config" class="hidden">
+        <div class="field-label">conditions</div>
+        <div id="filter-conditions" class="conditions-list"></div>
+        <div class="actions condition-actions">
+          <button id="filter-add-condition" class="add-condition-btn">+ AND</button>
+          <button id="filter-add-or" class="add-condition-btn">+ OR</button>
+        </div>
+        <div class="actions">
+          <button id="filter-run" class="btn btn-primary">run filter</button>
+          <button id="filter-download" class="btn btn-success hidden">↓ download filtered</button>
+        </div>
+      </div>
+      <div id="filter-results" class="results"></div>
+      <div id="filter-previews"></div>
+    </section>
+
+    <!-- REPLACER -->
+    <section id="replacer-tool" class="tool-section hidden">
+      <p class="tool-desc">Bulk replace all values in selected columns with a new value.</p>
+      <div class="field">
+        <label>csv file</label>
+        <div class="file-input-wrapper">
+          <input type="file" id="replacer-file" accept=".csv">
+          <span class="file-btn">Choose file</span>
+          <span class="file-name">No file selected</span>
+        </div>
+      </div>
+      <div id="replacer-columns" class="hidden">
+        <div class="field">
+          <label>select columns to replace</label>
+          <input type="text" id="replacer-search" class="hidden" placeholder="search columns...">
+          <div id="replacer-checkbox-list" class="checkbox-list"></div>
+        </div>
+        <div class="actions">
+          <button id="replacer-confirm-cols" class="btn btn-primary">confirm selection</button>
+        </div>
+      </div>
+      <div id="replacer-values" class="hidden">
+        <div class="field">
+          <label>new value per column</label>
+          <div id="replacer-values-list"></div>
+        </div>
+        <div class="actions">
+          <button id="replacer-apply" class="btn btn-primary">apply</button>
+          <button id="replacer-download" class="btn btn-success hidden">↓ download replaced</button>
+        </div>
+      </div>
+      <div id="replacer-results" class="results"></div>
+      <div id="replacer-previews"></div>
+    </section>
+  </div>
+
+  <div id="preview-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title"></span>
+        <button class="modal-close">×</button>
+      </div>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="js/csv-core.js"></script>
+  <script src="js/comparer.js"></script>
+  <script src="js/filter.js"></script>
+  <script src="js/replacer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,473 @@
+/* Comparer inputs */
+
+.comparer-inputs {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.comparer-inputs .field {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.comparer-inputs .btn {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .comparer-inputs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* CSV preview table */
+
+.csv-preview-container {
+  margin-top: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.csv-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.8rem;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.csv-preview-header > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.csv-preview-header .preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.csv-preview-header .expand-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--mono);
+}
+
+.csv-preview-header .expand-btn:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+}
+
+.csv-preview-header .tag {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag-base {
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--accent);
+}
+
+.tag-target {
+  background: rgba(210, 153, 34, 0.15);
+  color: var(--yellow);
+}
+
+.tag-output {
+  background: rgba(63, 185, 80, 0.15);
+  color: var(--green);
+}
+
+.csv-preview-footer {
+  padding: 0.5rem 0.8rem;
+  background: var(--bg-raised);
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.csv-preview-scroll {
+  overflow: auto;
+  max-height: 280px;
+}
+
+.csv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.csv-table th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-raised);
+  padding: 0.45rem 0.7rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.csv-table td {
+  padding: 0.35rem 0.7rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.csv-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.csv-table .row-num {
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  text-align: right;
+  padding-right: 0.5rem;
+  user-select: none;
+  width: 40px;
+}
+
+/* Column highlights */
+
+.col-missing {
+  background: rgba(248, 81, 73, 0.1) !important;
+  color: var(--red) !important;
+}
+
+.col-extra {
+  background: rgba(210, 153, 34, 0.1) !important;
+  color: var(--yellow) !important;
+}
+
+.col-added {
+  background: rgba(63, 185, 80, 0.1) !important;
+  color: var(--green) !important;
+}
+
+/* Side-by-side preview */
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.preview-grid.single {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 768px) {
+  .preview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Diff list */
+
+.diff-list + .diff-list {
+  margin-top: 0.5rem;
+}
+
+.diff-list {
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.diff-list-header {
+  padding: 0.5rem 0.8rem;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.diff-list-scroll {
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.diff-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.diff-item:last-child {
+  border-bottom: none;
+}
+
+.diff-item .prefix {
+  font-weight: 700;
+  width: 1rem;
+  text-align: center;
+}
+
+.diff-item.missing .prefix {
+  color: var(--red);
+}
+
+.diff-item.extra .prefix {
+  color: var(--yellow);
+}
+
+/* Filter conditions */
+
+.conditions-list {
+  margin-bottom: 1rem;
+}
+
+.condition-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .condition-row {
+    flex-wrap: wrap;
+  }
+}
+
+.condition-row select,
+.condition-row input[type="text"] {
+  padding: 0.35rem 0.5rem;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.condition-row select {
+  min-width: 100px;
+}
+
+.condition-row .cond-value {
+  flex: 1;
+  min-width: 80px;
+}
+
+/* Column picker */
+
+.cond-column-picker {
+  position: relative;
+  flex: 1;
+  min-width: 120px;
+}
+
+.cond-column-picker .cond-column {
+  width: 100%;
+  cursor: pointer;
+}
+
+.cond-column-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cond-column-dropdown .cond-column-search {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  background: var(--bg);
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 4px 4px 0 0;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.cond-column-search:focus {
+  outline: none;
+}
+
+.cond-column-list {
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.cond-column-option {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.cond-column-option:hover {
+  background: var(--bg-hover);
+}
+
+.condition-row .condition-keyword {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  min-width: fit-content;
+}
+
+.condition-row .cond-case-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.condition-row .cond-case-label input {
+  accent-color: var(--accent);
+  width: 12px;
+  height: 12px;
+}
+
+.condition-row .remove-condition {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0 0.3rem;
+  line-height: 1;
+}
+
+.condition-row .remove-condition:hover {
+  color: var(--red);
+}
+
+.condition-actions {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.add-condition-btn {
+  font-size: 0.75rem;
+  color: var(--accent);
+  background: none;
+  border: 1px dashed var(--border);
+  padding: 0.35rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--mono);
+}
+
+.add-condition-btn:hover {
+  border-color: var(--accent-dim);
+  background: rgba(139, 92, 246, 0.05);
+}
+
+/* Replacer checkbox list */
+
+.checkbox-list {
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.3rem;
+  background: var(--bg);
+}
+
+.checkbox-item {
+  display: block;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  border-radius: 3px;
+  color: var(--text);
+}
+
+.checkbox-item:hover {
+  background: var(--bg-hover);
+}
+
+.checkbox-item input {
+  accent-color: var(--accent);
+  margin-right: 0.5rem;
+}
+
+/* Replacer values grid */
+
+.values-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 0.7rem;
+  align-items: center;
+}
+
+.values-grid label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.values-grid input {
+  padding: 0.4rem 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.values-grid input:focus {
+  outline: none;
+  border-color: var(--accent-dim);
+}
